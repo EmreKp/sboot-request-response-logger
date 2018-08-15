@@ -50,7 +50,7 @@ public class LoggingFilter extends OncePerRequestFilter {
 		model.setUrl(mainUrl + nextPath);
 
 		//get request body if there is a post method
-		String requestBody = new String(requestWrapper.getContentAsByteArray());
+		String requestBody = IOUtils.toString(request.getInputStream());
 		model.setRequestBody(requestBody);
 
 		//set status as httpstatus object
