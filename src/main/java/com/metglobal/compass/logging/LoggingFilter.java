@@ -41,17 +41,17 @@ public class LoggingFilter extends OncePerRequestFilter {
 		ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
 		ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
 
+		//get request body if there is a post method
+		String requestBody = IOUtils.toString(request.getInputStream());
+		model.setRequestBody(requestBody);
+
 		filterChain.doFilter(requestWrapper, responseWrapper);
 
 		//get main url and check any query string exists
 		String mainUrl = requestWrapper.getRequestURL().toString(); //url path included except queries
-		String nextPath = requestWrapper.getQueryString();
-		nextPath = (nextPath == null) ? "" : "?" + nextPath; //will be empty if null
-		model.setUrl(mainUrl + nextPath);
-
-		//get request body if there is a post method
-		String requestBody = IOUtils.toString(request.getInputStream());
-		model.setRequestBody(requestBody);
+		String query = requestWrapper.getQueryString();
+		query = (query == null) ? "" : "?" + query; //will be empty if null
+		model.setUrl(mainUrl + query);
 
 		//set status as httpstatus object
 		int status = responseWrapper.getStatusCode();
