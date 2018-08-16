@@ -45,9 +45,9 @@ public class LoggingFilter extends OncePerRequestFilter {
 
 		//get main url and check any query string exists
 		String mainUrl = requestWrapper.getRequestURL().toString(); //url path included except queries
-		String nextPath = requestWrapper.getQueryString();
-		nextPath = (nextPath == null) ? "" : "?" + nextPath; //will be empty if null
-		model.setUrl(mainUrl + nextPath);
+		//String nextPath = requestWrapper.getQueryString();
+		//nextPath = (nextPath == null) ? "" : "?" + nextPath; //will be empty if null
+		model.setUrl(mainUrl);
 
 		//get request body if there is a post method
 		String requestBody = IOUtils.toString(request.getInputStream());
