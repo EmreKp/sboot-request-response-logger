@@ -13,6 +13,8 @@ public class MockChain implements FilterChain {
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse)
 			throws IOException, ServletException {
+		servletRequest.getInputStream();
+		servletRequest.getReader();
 		servletResponse.getWriter().println("Here is your response");
 	}
 }
